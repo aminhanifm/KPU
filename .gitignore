@@ -7,6 +7,8 @@ UnityGenerated/
 Library/
 Assets/AssetStoreTools*
 Assets/Plugins*
+**/Assets/Plugins/
+**/.vs/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
