@@ -5,6 +5,8 @@ public class InputState
     public float XAxis { get; set; }
     public float YAxis { get; set; }
     public Vector2 CurrentDirection => new Vector2(XAxis, YAxis);
+
+    public bool available => (XAxis!=0 || YAxis!=0);
     public bool Collect { get; set; }
     public bool Search { get; set; }
 

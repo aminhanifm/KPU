@@ -4,15 +4,17 @@ using System;
 
 public class PlayerAnimationHandler : IInitializable
 {
-    private readonly string[] staticAnimations = {"Up", "UpRight", "Right", "DownRight", 
-                                                    "Down", "DownLeft", "Left", "UpLeft"};
+    //private readonly string[] staticAnimations = {"Up", "UpRight", "Right", "DownRight", 
+    //                                                "Down", "DownLeft", "Left", "UpLeft"};
+
+    private readonly string[] staticAnimations = {"Walk_Up", "Walk_UpRight", "Walk_Right", "Walk_DownRight",
+                                                    "Walk_Down", "Walk_DownLeft", "Walk_Left", "Walk_UpLeft"};
 
     private Components _components;
     private PlayerModel _player;
 
     string[] _directionArray;
     public int lastAnimationIndex;
-    public bool facingRight { get; set; }
 
     private Animator _animator => _components.animator;
 
@@ -30,17 +32,22 @@ public class PlayerAnimationHandler : IInitializable
     }
     public void Initialize()
     {
+        Debug.Log("INit start");
         _directionArray = staticAnimations;
+        lastAnimationIndex = 4;
     }
 
-    public void setDirection(Vector2 direction)
+    public void Animate(Vector2 direction)
     {
+        if (!_player.Input.available)
+        {
+            _animator.Play("Idle_Down");
+            return;
+        }
+        
         lastAnimationIndex = directionToIndex(direction, 8);
 
-        if (lastAnimationIndex > 0 && facingRight) flip();
-        else if (lastAnimationIndex < 0 && !facingRight) flip();
-
-        _animator.Play(_directionArray[Mathf.Abs(lastAnimationIndex)]);
+        _animator.Play(staticAnimations[lastAnimationIndex]);
     }
 
     private int directionToIndex(Vector2 direction, int sliceCount)
@@ -49,23 +56,15 @@ public class PlayerAnimationHandler : IInitializable
 
         float step = 360f / sliceCount;
 
-        float halfStep = step / 1.5f;
+        float halfStep = step / 2f;
 
         float angle = Vector2.SignedAngle(Vector2.up, normDir);
 
-        angle += halfStep;
+        //angle += halfStep;
+        angle = -(angle - 360 - halfStep) % 360f;
 
         float stepCount = angle / step;
         return Mathf.FloorToInt(stepCount);
-    }
-
-    void flip()
-    {
-        facingRight = !facingRight;
-        Vector3 scale = _player.Transform.localScale;
-
-        scale.x *= -1;
-        _player.Transform.localScale = scale;
     }
 
     [Serializable]

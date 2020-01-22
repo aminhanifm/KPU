@@ -13,6 +13,8 @@ public class PlayerFacade : MonoBehaviour
 
     private PlayerCollisionHandler _collisionHandler;
 
+    private PlayerAnimationHandler _animationHandler;
+
     private enum States
     {
         Idle,
@@ -30,11 +32,13 @@ public class PlayerFacade : MonoBehaviour
     public void Construct(
         PlayerModel player,
         PlayerCollisionHandler collisionHandler,
-        PlayerMovementHandler movementHandler)
+        PlayerMovementHandler movementHandler,
+        PlayerAnimationHandler animationHandler)
     {
         _player = player;
         _collisionHandler = collisionHandler;
         _movementHandler = movementHandler;
+        _animationHandler = animationHandler;
     }
 
     /// <summary>
@@ -44,6 +48,7 @@ public class PlayerFacade : MonoBehaviour
     {
         _collisionHandler.Check(_player.Input.CurrentDirection);
         _movementHandler.Move(_player.Input.CurrentDirection);
+        _animationHandler.Animate(_player.Input.CurrentDirection);
 
         //if (_player.IsMoving && _stateMachine.CurrentStateIs(_stateMap[States.Idle]))
         //{

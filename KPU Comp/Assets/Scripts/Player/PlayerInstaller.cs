@@ -26,12 +26,8 @@ public class PlayerInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
-        Container.Bind<PlayerAnimationHandler>()
-            .AsSingle()
-            .WithArguments(animatorComponents)
-            .NonLazy();
-
         Collision();
+        _Animator();
     }
 
     /// <summary>
@@ -46,6 +42,14 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayerCollisionHandler>()
             .AsSingle()
             .WithArguments(collisionComponents)
+            .NonLazy();
+    }
+
+    private void _Animator()
+    {
+        Container.Bind<PlayerAnimationHandler>()
+            .AsSingle()
+            .WithArguments(animatorComponents)
             .NonLazy();
     }
 }
