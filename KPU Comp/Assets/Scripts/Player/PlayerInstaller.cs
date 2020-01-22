@@ -9,6 +9,7 @@ public class PlayerInstaller : MonoInstaller
     public PlayerSettings playerSettings;
     public PlayerModel.Components modelComponents;    
     public PlayerCollisionHandler.Components collisionComponents;
+    public PlayerAnimationHandler.Components animatorComponents;
 
     public override void InstallBindings()
     {
@@ -23,6 +24,11 @@ public class PlayerInstaller : MonoInstaller
 
         Container.Bind<PlayerMovementHandler>()
             .AsSingle()
+            .NonLazy();
+
+        Container.Bind<PlayerAnimationHandler>()
+            .AsSingle()
+            .WithArguments(animatorComponents)
             .NonLazy();
 
         Collision();

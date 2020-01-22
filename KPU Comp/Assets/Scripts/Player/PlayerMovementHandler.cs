@@ -18,12 +18,24 @@ public class PlayerMovementHandler
 
     public void Move(Vector2 delta)
     {
+        _8DirectionModule(ref delta);
+
         XMovement(ref delta);
         YMovement(ref delta);
 
         _player.Position += delta * _playerSettings.speed * Time.deltaTime;
     }
 
+    private void _8DirectionModule(ref Vector2 delta)
+    {
+        float step = 360f / 8;
+        float halfstep = step / 2;
+
+        var angle = Vector2.SignedAngle(Vector2.up, delta);
+        angle = -(angle - 360 -halfstep) % 360f;
+
+        int pos = Mathf.FloorToInt(angle / step);
+    }
 
     private void XMovement(ref Vector2 delta)
     {

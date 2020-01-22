@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 1453970958}
   - component: {fileID: 1453970960}
   - component: {fileID: 1453970959}
+  - component: {fileID: 1453970965}
   - component: {fileID: 1453970964}
   - component: {fileID: 1453970962}
   - component: {fileID: 1453970963}
@@ -519,6 +520,8 @@ MonoBehaviour:
     transform: {fileID: 1453970958}
   collisionComponents:
     boxCollider2D: {fileID: 1453970959}
+  animatorComponents:
+    animator: {fileID: 1453970965}
 --- !u!114 &1453970963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +557,25 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!95 &1453970965
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453970957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1498571609
 GameObject:
   m_ObjectHideFlags: 0
