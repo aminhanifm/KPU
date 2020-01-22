@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 452eb34268756d949bbc67c981db821a
-=======
-guid: 12c0680074369514b944a2bd345a6481
->>>>>>> PlayerMovement
+guid: bab419279cae40f49b970ccd20afadad
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
