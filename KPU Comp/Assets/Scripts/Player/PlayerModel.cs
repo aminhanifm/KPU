@@ -13,6 +13,9 @@ public class PlayerModel
 
     public PlayerCollisionState CollisionState { get; }
 
+    public PlayerTriggerItems TriggerItems { get; }
+
+
     public bool IsMoving => Vector2.Distance(Position, LastPosition) > 0.001;
 
     /// <summary>
@@ -23,10 +26,12 @@ public class PlayerModel
     public PlayerModel(
         Components components,
         PlayerCollisionState collisionState,
+        PlayerTriggerItems triggerItems,
         InputState input)
     {
         _components = components;
         CollisionState = collisionState;
+        TriggerItems = triggerItems;
         Input = input;
     }
 

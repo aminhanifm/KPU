@@ -11,4 +11,7 @@ public class PlayerSettings : ScriptableObject
     [Range(0.001f, 0.3f)] public float skinWidth = 0.02f;
     [Range(2, 20)] public int horizontalRays = 8;
     [Range(2, 20)] public int verticalRays = 4;
+
+    [Header("Triggers")]
+    public LayerMask triggerMask;
 }

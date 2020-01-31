@@ -1,4 +1,5 @@
 ﻿using Zenject;
+using UnityEngine;
 
 public class PlayerInstaller : MonoInstaller
 {
@@ -7,6 +8,7 @@ public class PlayerInstaller : MonoInstaller
     public InputState InputState;
 
     public PlayerSettings playerSettings;
+    public PosContainer posContainer;
     public PlayerModel.Components modelComponents;    
     public PlayerCollisionHandler.Components collisionComponents;
     public PlayerAnimationHandler.Components animatorComponents;
@@ -15,6 +17,10 @@ public class PlayerInstaller : MonoInstaller
     {
         Container.Bind<PlayerSettings>()
                 .FromInstance(playerSettings)
+                .AsSingle();
+
+        Container.Bind<PosContainer>()
+                .FromInstance(posContainer)
                 .AsSingle();
 
         Container.Bind<PlayerModel>()
@@ -29,7 +35,7 @@ public class PlayerInstaller : MonoInstaller
         Collision();
         _Animator();
     }
-
+    
     /// <summary>
     /// Bind collision
     /// </summary>
@@ -38,6 +44,12 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerCollisionState>()
             .AsSingle()
             .WhenInjectedInto<PlayerModel>();
+
+        Container.Bind<PlayerTriggerItems>()
+            .AsSingle()
+            .WhenInjectedInto<PlayerModel>();
+
+        Container.BindFactory<string, float, GameObject, PosSettings, PlayerTriggerItems.Item, PlayerTriggerItems.Item.Factory>();
 
         Container.BindInterfacesAndSelfTo<PlayerCollisionHandler>()
             .AsSingle()

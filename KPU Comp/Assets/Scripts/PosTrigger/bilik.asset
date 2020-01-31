@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80168aed165f04e47b4bade20f9eba7b, type: 3}
-  m_Name: PlayerSettings
+  m_Script: {fileID: 11500000, guid: decfec7501853ca4988864b0900aab8c, type: 3}
+  m_Name: bilik
   m_EditorClassIdentifier: 
-  speed: 5
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 256
-  skinWidth: 0.02
-  horizontalRays: 8
-  verticalRays: 4
-  triggerMask:
-    serializedVersion: 2
-    m_Bits: 512
+  notification: 
+  toScene: 
