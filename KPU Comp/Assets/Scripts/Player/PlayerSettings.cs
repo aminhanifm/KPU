@@ -14,4 +14,7 @@ public class PlayerSettings : ScriptableObject
 
     [Header("Triggers")]
     public LayerMask triggerMask;
+
+    [Header("GUI")]
+    public CanvasGroup posNotification;
 }

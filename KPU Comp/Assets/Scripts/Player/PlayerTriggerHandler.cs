@@ -8,10 +8,14 @@ public class PlayerTriggerHandler : MonoBehaviour
     private PosContainer _posContainer;
 
     [Inject]
+    private GuiPosNotification _guiPosNotification;
+
+    [Inject]
     public void Construct(
         PlayerModel player,
         PlayerSettings playerSettings,
-        PosContainer posContainer )
+        PosContainer posContainer
+        )
     {
         _player = player;
         _playerSettings = playerSettings;
@@ -24,7 +28,7 @@ public class PlayerTriggerHandler : MonoBehaviour
     /// <param name="other"></param>
     private PosSettings GetPosSettings(string key)
     {
-        _posContainer.Store.TryGetValue("antri", out PosSettings posSettings);
+        _posContainer.Store.TryGetValue(key, out PosSettings posSettings);
         return posSettings;
     }
 
@@ -37,11 +41,16 @@ public class PlayerTriggerHandler : MonoBehaviour
     {
         if (!_playerSettings.triggerMask.Contains(other.gameObject.layer)) return;
 
+        PosSettings posSettings = GetPosSettings(other.gameObject.tag);
+
         _player.TriggerItems.AddItem(
             other.gameObject,
             Vector2.Distance(_player.Position, gameObject.transform.position),
-            GetPosSettings(other.gameObject.tag)
+            posSettings
         );
+
+        _guiPosNotification.posSettings = posSettings;
+        _guiPosNotification.onEnterAnimation();
     }
 
 
@@ -69,5 +78,8 @@ public class PlayerTriggerHandler : MonoBehaviour
         if (!_playerSettings.triggerMask.Contains(other.gameObject.layer)) return;
 
         _player.TriggerItems.RemoveItem(other.gameObject);
+
+        _guiPosNotification.posSettings = null;
+        _guiPosNotification.onExitAnimation();
     }
 }
