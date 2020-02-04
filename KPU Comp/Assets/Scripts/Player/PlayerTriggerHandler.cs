@@ -79,7 +79,8 @@ public class PlayerTriggerHandler : MonoBehaviour
 
         _player.TriggerItems.RemoveItem(other.gameObject);
 
-        _guiPosNotification.posSettings = null;
+        //_guiPosNotification.posSettings = null;
         _guiPosNotification.onExitAnimation();
     }
+
 }
