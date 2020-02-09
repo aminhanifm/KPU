@@ -10,5 +10,8 @@ public class LevelInstaller : MonoInstaller
         Container.Bind<PlayerFacade>()
             .FromComponentInHierarchy(player)
             .AsSingle();
+
+        Container.Bind<LevelState>()
+            .AsSingle();
     }
 }
