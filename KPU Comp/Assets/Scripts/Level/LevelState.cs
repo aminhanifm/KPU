@@ -4,16 +4,42 @@ using UnityEngine;
 
 public class LevelState
 {
-    public enum State
+    public LevelState.moreStates _moreStates;
+    public LevelState(
+        LevelState.moreStates moreStates)
     {
-        antri,
-        coblos,
-        masukinkertas,
-        tinta,
-        selesai
+        _moreStates = moreStates;
     }
 
-    public List<Calon> Calons { get; set; }
-    public State state { get; private set; }
+    public readonly Dictionary<States, string> stateMap = new Dictionary<States, string>
+    {
+        { States.antri, "antri"},
+        { States.coblos, "coblos"},
+        { States.masukinkertas, "masukinkertas"},
+        { States.celup, "celup"},
+        { States.selesai, "selesai"},
+    };
+    
+    public States current { get; set; }
+    public States previous { get; set; }
 
+    public ISegment currentSegment { get; set; }
+
+    public bool Compare(string name)
+    {
+        Debug.Log(stateMap[current] + " " + name);
+        if (stateMap[current] != name)
+            return false;
+        return true;
+    }
+
+    public class moreStates
+    {
+        public bool moveAllowed { get; set; }
+
+        public void reset()
+        {
+            moveAllowed = true;
+        }
+    }
 }

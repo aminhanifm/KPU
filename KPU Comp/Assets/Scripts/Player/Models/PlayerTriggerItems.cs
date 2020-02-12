@@ -6,8 +6,10 @@ using Zenject;
 public class PlayerTriggerItems
 {
     private Item.Factory _itemFactory;
-        
+
     public List<Item> Items = new List<Item>();
+
+    public bool Collided => (Items.Count() > 0);
 
 
     /// <summary>

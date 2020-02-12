@@ -1,4 +1,5 @@
 ﻿using Zenject;
+using UnityEngine;
 
 public class KeyboardHandler : ITickable
 {
@@ -19,7 +20,7 @@ public class KeyboardHandler : ITickable
         _inputState.Reset();
 
         CheckAxes();
-        //CheckButtons();
+        CheckButtons();
     }
 
 
@@ -38,7 +39,8 @@ public class KeyboardHandler : ITickable
     /// </summary>
     private void CheckButtons()
     {
-        _inputState.Collect = UnityEngine.Input.GetButtonDown("Collect");
-        _inputState.Search = UnityEngine.Input.GetButtonDown("Search");
+        _inputState.Interact = UnityEngine.Input.GetButtonDown("Interact");
+        //_inputState.Collect = UnityEngine.Input.GetButtonDown("Collect");
+        //_inputState.Search = UnityEngine.Input.GetButtonDown("Search");
     }
 }

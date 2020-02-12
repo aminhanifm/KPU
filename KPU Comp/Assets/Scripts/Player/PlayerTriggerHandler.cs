@@ -6,6 +6,7 @@ public class PlayerTriggerHandler : MonoBehaviour
     private PlayerModel _player;
     private PlayerSettings _playerSettings;
     private PosContainer _posContainer;
+    private LevelHandler _levelHandler;
 
     [Inject]
     private GuiPosNotification _guiPosNotification;
@@ -14,12 +15,14 @@ public class PlayerTriggerHandler : MonoBehaviour
     public void Construct(
         PlayerModel player,
         PlayerSettings playerSettings,
-        PosContainer posContainer
+        PosContainer posContainer,
+        LevelHandler levelHandler
         )
     {
         _player = player;
         _playerSettings = playerSettings;
         _posContainer = posContainer;
+        _levelHandler = levelHandler;
     }
 
     /// <summary>
@@ -41,16 +44,19 @@ public class PlayerTriggerHandler : MonoBehaviour
     {
         if (!_playerSettings.triggerMask.Contains(other.gameObject.layer)) return;
 
-        PosSettings posSettings = GetPosSettings(other.gameObject.tag);
+        if (_levelHandler.CompareState(other.gameObject.tag))
+        {
+            PosSettings posSettings = GetPosSettings(other.gameObject.tag);
 
-        _player.TriggerItems.AddItem(
-            other.gameObject,
-            Vector2.Distance(_player.Position, gameObject.transform.position),
-            posSettings
-        );
+            _player.TriggerItems.AddItem(
+                other.gameObject,
+                Vector2.Distance(_player.Position, gameObject.transform.position),
+                posSettings
+            );
 
-        _guiPosNotification.posSettings = posSettings;
-        _guiPosNotification.onEnterAnimation();
+            _guiPosNotification.posSettings = posSettings;
+            _guiPosNotification.onEnterAnimation();
+        }
     }
 
 

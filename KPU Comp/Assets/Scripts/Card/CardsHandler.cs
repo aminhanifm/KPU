@@ -40,6 +40,7 @@ public class CardsHandler : MonoBehaviour
             GameObject newCard = cardFactory.Create().gameObject;
             newCard.transform.SetParent(this.transform);
             newCard.GetComponent<Card>().id = i;
+            newCard.GetComponent<RectTransform>().localScale = Vector3.one;
             cards.Add(newCard);
         }
     }

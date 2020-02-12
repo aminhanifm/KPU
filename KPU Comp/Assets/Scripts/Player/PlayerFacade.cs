@@ -15,6 +15,8 @@ public class PlayerFacade : MonoBehaviour
 
     private PlayerAnimationHandler _animationHandler;
 
+    private LevelHandler _levelHandler;
+
     private enum States
     {
         Idle,
@@ -33,12 +35,14 @@ public class PlayerFacade : MonoBehaviour
         PlayerModel player,
         PlayerCollisionHandler collisionHandler,
         PlayerMovementHandler movementHandler,
-        PlayerAnimationHandler animationHandler)
+        PlayerAnimationHandler animationHandler,
+        LevelHandler levelHandler)
     {
         _player = player;
         _collisionHandler = collisionHandler;
         _movementHandler = movementHandler;
         _animationHandler = animationHandler;
+        _levelHandler = levelHandler;
     }
 
     /// <summary>
@@ -46,9 +50,13 @@ public class PlayerFacade : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
+        if (_levelHandler.GameStates.moveAllowed)
+        {
+            _movementHandler.Move(_player.Input.CurrentDirection);
+            _animationHandler.Animate(_player.Input.CurrentDirection);
+        }
         _collisionHandler.Check(_player.Input.CurrentDirection);
-        _movementHandler.Move(_player.Input.CurrentDirection);
-        _animationHandler.Animate(_player.Input.CurrentDirection);
+        
 
         //if (_player.IsMoving && _stateMachine.CurrentStateIs(_stateMap[States.Idle]))
         //{

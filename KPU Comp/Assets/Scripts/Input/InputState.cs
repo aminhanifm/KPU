@@ -10,6 +10,8 @@ public class InputState
     public bool Collect { get; set; }
     public bool Search { get; set; }
 
+    public bool Interact { get; set; }
+
 
     public void Reset()
     {
