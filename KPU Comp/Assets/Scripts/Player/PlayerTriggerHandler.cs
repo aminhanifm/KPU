@@ -54,9 +54,10 @@ public class PlayerTriggerHandler : MonoBehaviour
                 posSettings
             );
 
-            _player.TriggerItems.newerCollidedObject = other.gameObject;
+            if (_levelHandler.levelState.current == States.masukinkertas)
+                LevelHandler.GameStates.kotakId = other.gameObject.GetComponent<Kotak>().idKotak;
 
-            LevelHandler.GameStates.kotakId = other.gameObject.GetComponent<Kotak>().idKotak;
+            _player.TriggerItems.newerCollidedObject = other.gameObject;
             
             _guiPosNotification.posSettings = posSettings;
             _guiPosNotification.onEnterAnimation();

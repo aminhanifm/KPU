@@ -7,12 +7,14 @@ using System.Linq;
 
 public class LevelHandler : MonoBehaviour
 {
-    private LevelState levelState;
+    public LevelState levelState;
     private PlayerModel _player;
     private List<States> sequences;
     [SerializeField] private List<GameObject> _segmentsObject;
     private List<ISegment> _segments;
     public ISegment[] _segments2;
+
+    public DialogMission dialogMission;
 
     public static LevelState.moreStates GameStates;
 
@@ -29,12 +31,12 @@ public class LevelHandler : MonoBehaviour
     {
         sequences = new List<States> {
             States.antri,
-            States.masukinkertas,
-            States.masukinkertas,
-            States.masukinkertas,
-            States.masukinkertas,
-            States.masukinkertas,
             States.coblos,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
             States.celup,
             States.selesai
         };
@@ -46,9 +48,13 @@ public class LevelHandler : MonoBehaviour
 
         GameStates = levelState._moreStates;
         GameStates.reset();
+        GameStates.GenerateCalonSelection();
 
         levelState.current = sequences[0];
         sequences.RemoveAt(0);
+
+        dialogMission.init();
+        dialogMission.setAllText();
     }
 
     private void Update()

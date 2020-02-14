@@ -7,10 +7,10 @@ using Zenject;
 
 public class SegmentNyoblos : MonoBehaviour, ISegment
 {
-    public LevelHandler _levelHandler;
-    public CardsHandler _cardHandler;
+    private LevelHandler _levelHandler;
+    private CardsHandler _cardHandler;
 
-    public CoblosContainer coblosContainer;
+    public DialogResult _dialogResult;
 
     private int CurrentIdxCalon;
 
@@ -31,7 +31,9 @@ public class SegmentNyoblos : MonoBehaviour, ISegment
 
         Action postLoad = () => { 
             Loading.Instance.endLoading();
+
             _cardHandler.gameObject.SetActive(true);
+            _cardHandler.ShowCardsToScene();
         };
 
         StartCoroutine(SceneChanger.ChangeScene("Nyoblos", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, postLoad));
@@ -74,13 +76,7 @@ public class SegmentNyoblos : MonoBehaviour, ISegment
 
     private void HandleNextSelection(int calonId)
     {
-        if(_cardHandler.CardLeft > 0)
-        {
-            LevelHandler.GameStates.playerSelects[CurrentIdxCalon] = calonId;
-            Debug.Log(LevelHandler.GameStates.playerSelects);
-            _cardHandler.ShowCardsToScene();
-        }
-        else
+        if(calonId == -1)
         {
             Loading.Instance.doLoading();
             Action action = () =>
@@ -88,6 +84,19 @@ public class SegmentNyoblos : MonoBehaviour, ISegment
                 Exit();
             };
             StartCoroutine(SceneChanger.UnloadCurrentScene(action));
+        }
+
+        else if(_cardHandler.CardLeft > 0)
+        {
+            LevelHandler.GameStates.playerSelects[CurrentIdxCalon] = calonId;
+            Debug.Log(LevelHandler.GameStates.playerSelects);
+            
+            _cardHandler.gameObject.SetActive(true);
+            _cardHandler.ShowCardsToScene();
+        }
+        else
+        {
+            _dialogResult.setAllText();
         }
     }
 

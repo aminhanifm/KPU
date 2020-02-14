@@ -29,6 +29,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
         hidden = gameObject.transform.Find("Hidden").gameObject;
         hiddenImage = hidden.GetComponent<Image>();
+        hiddenImage.DOFade(0, 0.4f);
         sequence = DOTween.Sequence();
         initialY = transform.localPosition.y;
         reset();
