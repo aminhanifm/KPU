@@ -17,7 +17,11 @@ MonoBehaviour:
     - antri
     - masukinkertas
     - coblos
+    - celup
+    - selesai
     values:
     - {fileID: 11400000, guid: 66bd6f79a4c4d16409717c07fc194900, type: 2}
     - {fileID: 11400000, guid: 7d6d6a12692560740a7909b8c74d15e6, type: 2}
     - {fileID: 11400000, guid: 9ccb31fc8116f5548bcd28a622de4887, type: 2}
+    - {fileID: 11400000, guid: 93ce17dcf1658554a82fee9cce75c475, type: 2}
+    - {fileID: 11400000, guid: 9b40a167503c52b48aa7df5b52bf8118, type: 2}

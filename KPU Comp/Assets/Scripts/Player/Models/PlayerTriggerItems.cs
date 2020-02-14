@@ -11,6 +11,8 @@ public class PlayerTriggerItems
 
     public bool Collided => (Items.Count() > 0);
 
+    public GameObject newerCollidedObject;
+
 
     /// <summary>
     /// Constructor

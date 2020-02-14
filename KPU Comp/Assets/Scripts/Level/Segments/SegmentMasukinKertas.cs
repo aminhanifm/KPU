@@ -7,6 +7,7 @@ using Zenject;
 public class SegmentMasukinKertas : MonoBehaviour, ISegment
 {
     private CardsHandler _cardHandler;
+    public LevelHandler _levelHandler;
     private DialogBox _dialogBox;
 
     private List<string> jenisKotak;
@@ -15,11 +16,13 @@ public class SegmentMasukinKertas : MonoBehaviour, ISegment
 
     [Inject]
     public void Construct(
+        LevelHandler levelHandler,
         CardsHandler cardsHandler,
         DialogBox dialogBox)
     {
         _cardHandler = cardsHandler;
         _dialogBox = dialogBox;
+        _levelHandler = levelHandler;
     }
 
     public void Start()

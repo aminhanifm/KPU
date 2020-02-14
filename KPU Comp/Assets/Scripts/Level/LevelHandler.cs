@@ -28,10 +28,13 @@ public class LevelHandler : MonoBehaviour
     private void Awake()
     {
         sequences = new List<States> {
-            States.masukinkertas,
             States.antri,
-            States.coblos,
             States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.masukinkertas,
+            States.coblos,
             States.celup,
             States.selesai
         };
@@ -62,15 +65,24 @@ public class LevelHandler : MonoBehaviour
         //if (levelState.currentSegment != null)
         //    levelState.currentSegment.Exit();
 
+
+        Destroy(_player.TriggerItems.newerCollidedObject.GetComponent<BoxCollider2D>());
+        //Debug.Log(_player.TriggerItems.Items.Count);
+
         if (sequences.Count == 0) return;
         levelState.previous = levelState.current;
         levelState.current = sequences[0];
         sequences.RemoveAt(0);
 
-        if (_segments.Count() > 0)
+        if (_segments.Count() > 0 && levelState.previous != levelState.current)
         {
             levelState.currentSegment = _segments[0];
             _segments.RemoveAt(0);
+            levelState.currentSegment.Init();
+        }
+        else
+        {
+            levelState.currentSegment = _segments[0];
             levelState.currentSegment.Init();
         }
     }
