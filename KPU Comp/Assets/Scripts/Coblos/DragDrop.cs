@@ -7,19 +7,26 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     [SerializeField] private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private Vector2 starterPosition;
 
     [SerializeField] private Transform _child;
     [SerializeField] private LayerMask layerMask;
 
     public Vector2 _pointedPosition => rectTransform.position;
 
-    [Inject]
-    private CoblosContainer coblosContainer;
+    public CoblosContainer coblosContainer;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+
+        starterPosition = rectTransform.anchoredPosition;
+    }
+
+    public void reset()
+    {
+        rectTransform.anchoredPosition = starterPosition;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -39,15 +46,15 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("onEndDrag");
         canvasGroup.blocksRaycasts = true;
 
-        RaycastHit2D hit = Physics2D.Raycast(_child.transform.position, Vector2.zero, Mathf.Infinity, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(_child.transform.position, Vector2.zero);
 
-        if (hit.collider != null)
+        if (hit.collider != null )
         {
             coblosContainer.selected = hit.collider.gameObject;
             coblosContainer.newPos = _child.transform.position;
-            coblosContainer.onNyoblos();
+            coblosContainer.onNyoblos(hit.collider.GetComponent<PanelDragDrop>().id);
         }
-            
+
     }
 
     public void OnPointerDown(PointerEventData eventData)

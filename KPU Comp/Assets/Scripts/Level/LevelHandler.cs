@@ -14,7 +14,7 @@ public class LevelHandler : MonoBehaviour
     private List<ISegment> _segments;
     public ISegment[] _segments2;
 
-    public LevelState.moreStates GameStates => (levelState._moreStates);
+    public static LevelState.moreStates GameStates;
 
     [Inject]
     public void Construct(
@@ -28,6 +28,7 @@ public class LevelHandler : MonoBehaviour
     private void Awake()
     {
         sequences = new List<States> {
+            States.masukinkertas,
             States.antri,
             States.coblos,
             States.masukinkertas,
@@ -40,6 +41,7 @@ public class LevelHandler : MonoBehaviour
             _segments.Add(segment.GetComponent<ISegment>());
         }
 
+        GameStates = levelState._moreStates;
         GameStates.reset();
 
         levelState.current = sequences[0];
@@ -50,7 +52,6 @@ public class LevelHandler : MonoBehaviour
     {
         if (_player.TriggerItems.Collided && _player.Input.Interact)
         {
-            Debug.Log("TESS");
             _player.TriggerItems.Items.Clear();
             SetNextState();
         }
@@ -58,8 +59,8 @@ public class LevelHandler : MonoBehaviour
 
     public void SetNextState()
     {
-        if (levelState.currentSegment != null)
-            levelState.currentSegment.Exit();
+        //if (levelState.currentSegment != null)
+        //    levelState.currentSegment.Exit();
 
         if (sequences.Count == 0) return;
         levelState.previous = levelState.current;

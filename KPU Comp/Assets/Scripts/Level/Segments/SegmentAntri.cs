@@ -20,7 +20,7 @@ public class SegmentAntri : MonoBehaviour, ISegment
 
         this.gameObject.SetActive(true);
 
-        _levelHandler.GameStates.moveAllowed = false;
+        LevelHandler.GameStates.moveAllowed = false;
         StartCoroutine(AnimateCutScene());
     }
 
@@ -43,7 +43,7 @@ public class SegmentAntri : MonoBehaviour, ISegment
     public void Exit()
     {
         Loading.Instance.endLoading();
-        _levelHandler.GameStates.moveAllowed = true;
+        LevelHandler.GameStates.moveAllowed = true;
         this.gameObject.SetActive(false);
     }
 }

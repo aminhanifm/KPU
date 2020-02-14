@@ -36,10 +36,19 @@ public class LevelState
     public class moreStates
     {
         public bool moveAllowed { get; set; }
+        public bool selectAllowed { get; set; }
+        public List<int> machineSelects { get; set; }
+        public List<int> playerSelects { get; set; }
+
+        public int kotakId { get; set; }
 
         public void reset()
         {
             moveAllowed = true;
+            selectAllowed = true;
+            machineSelects = new List<int> { -1, -1, -1, -1, -1};
+            playerSelects = new List<int> { -1, -1, -1, -1, -1 };
+            kotakId = -1;
         }
     }
 }

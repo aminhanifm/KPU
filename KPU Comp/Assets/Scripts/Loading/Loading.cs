@@ -17,6 +17,8 @@ public class Loading : MonoBehaviour
     {
         Instance = this;
 
+        DontDestroyOnLoad(this);
+
         isLoading = false;
         top = this.transform.Find("top").GetComponent<Image>();
         bottom = this.transform.Find("bottom").GetComponent<Image>();

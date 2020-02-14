@@ -9,6 +9,8 @@ public class PanelDragDrop : MonoBehaviour
     public GameObject hole;
     [SerializeField] private Canvas canvas;
 
+    public int id;
+
     //GameObject paku;
     //DragDrop pakuDragDrop;
 

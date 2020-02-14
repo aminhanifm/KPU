@@ -6,7 +6,9 @@ TagManager:
   tags:
   - antri
   - coblos
-  - bilik
+  - masukinkertas
+  - celup
+  - selesai
   layers:
   - Default
   - TransparentFX

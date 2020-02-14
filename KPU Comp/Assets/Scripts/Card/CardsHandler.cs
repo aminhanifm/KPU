@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Zenject;
+using System;
 
 public class CardsHandler : MonoBehaviour
 {
     [SerializeField] private float spacing = 50f;
 
     public Card.Factory cardFactory;
+
+    public List<Sprite> images;
 
     [Inject]
     public void Construct(
@@ -22,6 +25,8 @@ public class CardsHandler : MonoBehaviour
     private float cardWidth;
     private List<GameObject> cards = new List<GameObject>();
 
+    public int CardLeft => cards.Count;
+
     private Sequence currSequence;
 
     [Range (1f, 10f)]
@@ -33,15 +38,48 @@ public class CardsHandler : MonoBehaviour
         RePositioningCards();
     }
 
+    public void DestroyCardAt(int i)
+    {
+        foreach(var _card_ in cards)
+        {
+            if(_card_.GetComponent<Card>().id == i)
+            {
+                Destroy(_card_.gameObject);
+                int at = cards.IndexOf(_card_);
+
+                cards.RemoveAt(at);
+                RePositioningCards();
+                return;
+            }
+        }
+        
+    }
+
     private void CreateAllCards(int count) {
         for(int i=0; i<count; i++)
         {
-            //Card newCard = cardFactory.Create();
             GameObject newCard = cardFactory.Create().gameObject;
             newCard.transform.SetParent(this.transform);
             newCard.GetComponent<Card>().id = i;
+            //newCard.GetComponent<Card>().setImage(images[i]);
             newCard.GetComponent<RectTransform>().localScale = Vector3.one;
             cards.Add(newCard);
+        }
+    }
+
+    public void ShowAllCards()
+    {
+        foreach(var cardku in cards)
+        {
+            cardku.GetComponent<Card>().ShowCard();
+        }
+    }
+
+    public void HideAllCards()
+    {
+        foreach (var cardku in cards)
+        {
+            cardku.GetComponent<Card>().HideCard();
         }
     }
 
@@ -97,18 +135,61 @@ public class CardsHandler : MonoBehaviour
         return sequence;
     }
 
+    public void HideCardsFromScene(Action action)
+    {
+        StartCoroutine(HideCardsFromScenePlay(action));
+    }
+
+    private IEnumerator HideCardsFromScenePlay(Action action)
+    {
+        float delay = 0.2f;
+        foreach (var cardku in cards)
+        {
+            cardku.GetComponent<Card>().HideCardFromScene();
+            yield return new WaitForSeconds(delay);
+        }
+
+        action();
+    }
+
+    public void ShowCardsToScene()
+    {
+        StartCoroutine(ShowCardsToScenePlay());
+    }
+
+    private IEnumerator ShowCardsToScenePlay()
+    {
+        //int tot = 0;
+        //foreach (var cardku in cards)
+        //{
+        //    cardku.GetComponent<Card>().reset();
+        //    tot++;
+        //}
+
+        //while (tot < cards.Count)
+        //    yield return null;
+
+        float delay = 0.2f;
+        foreach (var cardku in cards)
+        {
+            cardku.GetComponent<Card>().ShowCardToScene();
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
     void OnGUI()
     {
         if (GUI.Button(new Rect(10, 10, 50, 20), "tes button"))
         {
             print("You clicked the button!");
-            StartRandomize();
+            ShowCardsToScene();
         }
 
         if (GUI.Button(new Rect(70, 10, 50, 20), "re position"))
         {
             print("You clicked the button!");
-            RePositioningCards();
+            Action action = () => { };
+            HideCardsFromScene(action);
         }
     }
 

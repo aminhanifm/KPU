@@ -4,7 +4,7 @@ using Zenject;
 public class CoblosInstaller : MonoInstaller
 {
     public CoblosContainer coblosContainer;
-    public CoblosContainer.Components coblosComponent;
+    //public CoblosContainer.Components coblosComponent;
 
     public override void InstallBindings() {
         

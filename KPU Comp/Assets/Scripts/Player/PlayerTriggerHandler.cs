@@ -54,6 +54,8 @@ public class PlayerTriggerHandler : MonoBehaviour
                 posSettings
             );
 
+            LevelHandler.GameStates.kotakId = other.gameObject.GetComponent<Kotak>().idKotak;
+
             _guiPosNotification.posSettings = posSettings;
             _guiPosNotification.onEnterAnimation();
         }

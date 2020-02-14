@@ -15,7 +15,9 @@ MonoBehaviour:
   stringClassStore:
     keys:
     - antri
-    - bilik
+    - masukinkertas
+    - coblos
     values:
     - {fileID: 11400000, guid: 66bd6f79a4c4d16409717c07fc194900, type: 2}
     - {fileID: 11400000, guid: 7d6d6a12692560740a7909b8c74d15e6, type: 2}
+    - {fileID: 11400000, guid: 9ccb31fc8116f5548bcd28a622de4887, type: 2}
